@@ -14,6 +14,11 @@ let alignmentSlider;
 let sepVal;
 let aliVal;
 let cohVal;
+let currentBoids;
+let numBoids = 100;
+let boidMaxSize = 8.0;
+let desiredSeparation = 50.0;
+let separationRadiusShowState = true;
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
@@ -41,30 +46,54 @@ function setup() {
 
   // ADD CONTROLS TO THE CONTROL PANEL
   // Add sliders to the pre-set (in index.html) spans...
-  cohesionSlider = createSlider(0, 5, 1, 0.1).parent('cohesion');
-  separationSlider = createSlider(0, 5, 1, 0.1).parent('separation');
+  boidsSlider = createSlider(0, 300, numBoids, 1).parent('numBoids');
+  separationRadiusShow = createCheckbox("", separationRadiusShowState).parent('separationRadiusShow');
+  separationRadiusSlider = createSlider(1, 100, desiredSeparation, 1).parent('separationRadius');
+  separationSlider = createSlider(0, 10, 5, 0.1).parent('separation');
   alignmentSlider = createSlider(0, 5, 1, 0.1).parent('alignment');
+  cohesionSlider = createSlider(0, 5, 1, 0.1).parent('cohesion');
   // Add spans for slider values and attach them to the pre-set '___V' spans...
+  boidsVal = createSpan(boidsSlider.value()).parent('boidsV');
+  sepRVal = createSpan(separationRadiusSlider.value()).parent('sepRV');
   sepVal = createSpan(separationSlider.value()).parent('sepV');
   aliVal = createSpan(alignmentSlider.value()).parent('aliV');
   cohVal = createSpan(cohesionSlider.value()).parent('cohV');
-  // sepVal.parent('sepV');
-  // aliVal.parent('aliV');
-  // cohVal.parent('cohV');
 
   flock = new Flock();
   // Add an initial set of boids into the system
-  for (let i = 0; i < 80; i++) {
+  numBoids = boidsSlider.value();
+  for (let i = 0; i < numBoids; i++) {
     let b = new Boid(floor(random(0, width)), floor(random(0, height)));
     flock.addBoid(b);
   }
 
 }
 
+
 function draw() {
-  background(51);
+  background(0);
   flock.run();
 
+
+  numBoids = boidsSlider.value();
+  currentBoids = flock.boids.length;
+  if (numBoids !== currentBoids) {
+    console.log("Desired: " + numBoids + " Flock: " + currentBoids);
+    if (numBoids > currentBoids) {
+      for (let i = 0; i < (numBoids - currentBoids); i++) {
+        let b = new Boid(floor(random(0, width)), floor(random(0, height)));
+        flock.addBoid(b);
+      }
+    } else if (numBoids < currentBoids) {
+      flock.removeBoids(currentBoids - numBoids);
+    }
+  }
+
+  desiredSeparation = separationRadiusSlider.value();
+  separationRadiusShowState = separationRadiusShow.checked();
+
+  boidsVal.html(boidsSlider.value());
+  sepRVal.html(separationRadiusSlider.value());
   sepVal.html(separationSlider.value());
   aliVal.html(alignmentSlider.value());
   cohVal.html(cohesionSlider.value());

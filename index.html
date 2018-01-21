@@ -106,6 +106,28 @@
 			border-top:1px solid #333;
 			/* border-bottom: 1px solid #333; */
 		}
+		#cp-body p.slider {
+			display: inline-block;
+			margin-right:1em;
+		}
+		input[type="range"] {
+			position: relative;
+			bottom: -3px;
+			margin: 0 10px;
+		}
+		#cp-body .changingValue {
+			display:inline-block;
+			min-width:50px;
+		}
+		#cp-body #separationRadiusShow div {
+			display:inline-block; /* for toggle checkbox */
+		}
+		#cp-body input[type="checkbox"] {
+			margin-right:5px;
+			position: relative;
+			top: -2px;
+		}
+
 
 		/* Add Animation */
 		@-webkit-keyframes slideIn {
@@ -138,9 +160,11 @@
 	      <h2>Steering Behaviours</h2>
 	    </div>
 	    <div id="cp-body">
-				<p><span id="separation">Separation: </span><span id="sepV"></span></p>
-				<p><span id="alignment">Alignment: </span><span id="aliV"></span></p>
-				<p><span id="cohesion">Cohesion: </span><span id="cohV"></span></p>
+				<p class="slider"><span id="numBoids">Boids: </span><span id="boidsV" class="changingValue"></span></p>
+				<p class="slider"><span id="separationRadiusShow"></span><span id="separationRadius">Separation Radius: </span><span id="sepRV" class="changingValue"></span></p>
+				<p class="slider"><span id="separation">Separation Strength: </span><span id="sepV" class="changingValue"></span></p>
+				<p class="slider"><span id="alignment">Alignment: </span><span id="aliV" class="changingValue"></span></p>
+				<p class="slider"><span id="cohesion">Cohesion: </span><span id="cohV" class="changingValue"></span></p>
 	    </div>
 	    <div class="cp-footer">
 	    </div>
