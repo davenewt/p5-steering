@@ -59,6 +59,10 @@ function setup() {
   aliVal = createSpan(alignmentSlider.value()).parent('aliV');
   cohVal = createSpan(cohesionSlider.value()).parent('cohV');
 
+  saveButton = createButton('Save Image');
+  saveButton.parent('saveBtn');
+  saveButton.mousePressed(saveImage);
+
   flock = new Flock();
   // Add an initial set of boids into the system
   numBoids = boidsSlider.value();
@@ -69,6 +73,9 @@ function setup() {
 
 }
 
+function saveImage() {
+  save('steering-behaviour.png');
+}
 
 function draw() {
   background(0);
