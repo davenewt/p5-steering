@@ -1,4 +1,4 @@
-// Daniel Shiffman
+// Based on original code from Daniel Shiffman
 // https://www.kadenze.com/courses/the-nature-of-code
 // http://natureofcode.com/
 // Session 3: Flocking
@@ -6,6 +6,8 @@
 // Demonstration of Craig Reynolds' "Flocking" behavior
 // See: http://www.red3d.com/cwr/
 // Rules: Cohesion, Separation, Alignment
+
+// Additions by David - https://davenewt.github.io/steering-behaviours/
 
 let flock;
 let cohesionSlider;
